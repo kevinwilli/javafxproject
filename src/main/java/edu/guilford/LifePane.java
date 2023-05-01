@@ -10,6 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+//import image
+import javafx.scene.image.Image;
 
 public class LifePane extends GridPane {
 
@@ -163,12 +165,12 @@ public class LifePane extends GridPane {
 
          //add listener to the imageview that sets the image to the second image when the mouse clicks the change image button
         submitButton2.setOnAction(e -> {
-            imageView.setImage(new javafx.scene.image.Image(file2.toURI().toString()));
+            imageView.setImage(new Image(file2.toURI().toString()));
         });
         
         //add a listener that sets the image to the first image when the mouse leaves the root node
         this.setOnMouseExited(e -> {
-            imageView.setImage(new javafx.scene.image.Image(file.toURI().toString()));
+            imageView.setImage(new Image(file.toURI().toString()));
         });
         
        //add a listener to the slider that changes the background color on the red
