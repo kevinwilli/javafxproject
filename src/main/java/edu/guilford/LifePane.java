@@ -9,8 +9,6 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-//import image
 import javafx.scene.image.Image;
 
 public class LifePane extends GridPane {
@@ -73,7 +71,7 @@ public class LifePane extends GridPane {
         slider = new Slider();
 
         //get the image the file of the image the the resource folder
-        File file = new File(getClass().getResource("image.jpg").getPath());
+        File file = new File(getClass().getResource("/edu/guilford/image.jpg").getPath());
 
 
         //instantiate a imageview attribute with the image file
@@ -173,10 +171,36 @@ public class LifePane extends GridPane {
             imageView.setImage(new Image(file.toURI().toString()));
         });
         
-       //add a listener to the slider that changes the background color on the red
+       //add a listener to the slider that changes the background color on the red if only the check box is unclicked
         slider.valueProperty().addListener(e -> {
-            this.setStyle("-fx-background-color: rgb(0, 0, "+slider.getValue()+")");
+            if(!checkBox.isSelected()){
+                this.setStyle("-fx-background-color: rgb(0, 0, "+slider.getValue()+")");
+            }
         });
+        //create an array of 50 diffeent jobs
+        String[] jobs = {"Student", "Teacher", "Doctor", "Lawyer", "Engineer", "Nurse",
+         "Police", "Firefighter", "Pilot", "Chef", "Farmer", "Mechanic", "Electrician", "Plumber", "Carpenter",
+          "Dentist", "Pharmacist", "Veterinarian", "Accountant", "Architect", "Actor", "Musician", "Athlete", "Artist",
+           "Scientist", "Psychologist", "Journalist", "Librarian", "Secretary", "Cashier", "Waiter", "Bartender", "Janitor",
+            "Bus Driver", "Taxi Driver", "Truck Driver", "Soldier", "Judge", "Politician", "Diplomat", "Priest", "Monk", "Nun",
+             "Bishop", "Pope", "King", "Queen", "Prince", "Princess", "Emperor", "Empress"};
+
+//add a listner to the job textfield that throws an exception if the job is not in the array when the submit button is clicked
+        jobTextField.setOnAction(e -> {
+            boolean found = false;
+            for(int i = 0; i < jobs.length; i++){
+                if(jobTextField.getText().equals(jobs[i])){
+                    found = true;
+                }
+            }
+            if(!found){
+                throw new IllegalArgumentException("Job not found");
+            }
+        });
+
+        // slider.valueProperty().addListener(e -> {
+        //     this.setStyle("-fx-background-color: rgb(0, 0, "+slider.getValue()+")");
+        // });
         //give a title for the image
         imageView.setAccessibleText("life best picture");
 
