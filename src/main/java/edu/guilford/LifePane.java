@@ -32,26 +32,26 @@ public class LifePane extends GridPane {
 
     // add a submit button attribute
     private Button submitButton;
-    //add a submit button attribute
+    // add a submit button attribute
     private Button submitButton2;
-    //add a checkbox attribute
+    // add a checkbox attribute
     private CheckBox checkBox;
-    //add a slider attribute
+    // add a slider attribute
     private Slider slider;
-    
-    //add a imageview attribute
+
+    // add a imageview attribute
     private ImageView imageView;
 
     // constructor
     public LifePane(Life life) {
-        
-         // set the life attribute
-         this.life = life;
+
+        // set the life attribute
+        this.life = life;
         // set the labels
-        nameLabel.setText("Name: "+life.getName());
-        groupLabel.setText("Group: "+life.getGroup());
+        nameLabel.setText("Name: " + life.getName());
+        groupLabel.setText("Group: " + life.getGroup());
         // ageLabel.setText("Age: ");
-        jobLabel.setText("Job: "+life.getJob());
+        jobLabel.setText("Job: " + life.getJob());
         // healthLabel.setText("Health: ");
 
         // instantiate text fields for the attributes
@@ -63,20 +63,18 @@ public class LifePane extends GridPane {
 
         // instantiate a button to submit the changes
         submitButton = new Button("Submit");
-        //instantiate a button to submit the changes
+        // instantiate a button to submit the changes
         submitButton2 = new Button("Change Image");
-        //instantiate a checkbox
+        // instantiate a checkbox
         checkBox = new CheckBox("background color");
-        //instantiate a slider
+        // instantiate a slider
         slider = new Slider();
 
-        //get the image the file of the image the the resource folder
+        // get the image the file of the image the the resource folder
         File file = new File(getClass().getResource("/edu/guilford/image.jpg").getPath());
 
-
-        //instantiate a imageview attribute with the image file
+        // instantiate a imageview attribute with the image file
         imageView = new ImageView(file.toURI().toString());
-        
 
         // set the text fields
         nameTextField.setText(life.getName());
@@ -87,7 +85,7 @@ public class LifePane extends GridPane {
 
         // add the labels to the pane
         this.add(nameLabel, 0, 0);
-        
+
         this.add(groupLabel, 0, 1);
         // this.add(ageLabel, 0, 2);
         this.add(jobLabel, 0, 3);
@@ -100,26 +98,25 @@ public class LifePane extends GridPane {
         this.add(jobTextField, 1, 3);
         // this.add(healthTextField, 1, 4);
 
-       //add the button to the pane
+        // add the button to the pane
 
         this.add(submitButton, 1, 5);
-        //add the button to the pane at the bottom center  of the first image
+        // add the button to the pane at the bottom center of the first image
         this.add(submitButton2, 1, 7);
-        //add the checkbox to the pane next to the submit button
+        // add the checkbox to the pane next to the submit button
         this.add(checkBox, 0, 5);
-        //add the slider to the pane at the top center of the first image
+        // add the slider to the pane at the top center of the first image
         this.add(slider, 1, 8);
-        
-        //add a listener to the checkbox that changes the background color to red when the checkbox is selected
+
+        // add a listener to the checkbox that changes the background color to red when
+        // the checkbox is selected
         checkBox.setOnAction(e -> {
-            if(checkBox.isSelected()){
+            if (checkBox.isSelected()) {
                 this.setStyle("-fx-background-color: red");
-            }
-            else{
+            } else {
                 this.setStyle("-fx-background-color: white");
             }
         });
-        
 
         // set the action for the button
         submitButton.setOnAction(e -> {
@@ -131,10 +128,10 @@ public class LifePane extends GridPane {
             // life.setHealth(healthTextField.getText());
 
             // set the labels to the new values
-            nameLabel.setText("Name: "+life.getName());
-            groupLabel.setText("Group: "+life.getGroup());
+            nameLabel.setText("Name: " + life.getName());
+            groupLabel.setText("Group: " + life.getGroup());
             // ageLabel.setText("Age: "+life.getAge());
-            jobLabel.setText("Job: "+life.getJob());
+            jobLabel.setText("Job: " + life.getJob());
             // healthLabel.setText("Health: "+life.getHealth());
         });
 
@@ -142,68 +139,75 @@ public class LifePane extends GridPane {
         this.setHgap(10);
         this.setVgap(10);
 
-        //add the imageview to the pane at the bottom center into the second column
+        // add the imageview to the pane at the bottom center into the second column
         this.add(imageView, 1, 6);
 
-        // add a listener to the imageview that reduce the size of the image when the mouse is over the image
+        // add a listener to the imageview that reduce the size of the image when the
+        // mouse is over the image
         imageView.setOnMouseEntered(e -> {
             imageView.setFitHeight(200);
             imageView.setFitWidth(200);
         });
 
-        // add a listener to the imageview that increase the size of the image when the mouse clicks the image
+        // add a listener to the imageview that increase the size of the image when the
+        // mouse clicks the image
         imageView.setOnMouseClicked(e -> {
             imageView.setFitHeight(400);
             imageView.setFitWidth(400);
         });
 
+        // get the image the file of the image the the resource folder
+        File file2 = new File(getClass().getResource("image2.jpg").getPath());
 
-        //get the image the file of the image the the resource folder
-         File file2 = new File(getClass().getResource("image2.jpg").getPath());
-
-         //add listener to the imageview that sets the image to the second image when the mouse clicks the change image button
+        // add listener to the imageview that sets the image to the second image when
+        // the mouse clicks the change image button
         submitButton2.setOnAction(e -> {
             imageView.setImage(new Image(file2.toURI().toString()));
         });
-        
-        //add a listener that sets the image to the first image when the mouse leaves the root node
+
+        // add a listener that sets the image to the first image when the mouse leaves
+        // the root node
         this.setOnMouseExited(e -> {
             imageView.setImage(new Image(file.toURI().toString()));
         });
-        
-       //add a listener to the slider that changes the background color on the red if only the check box is unclicked
+
+        // add a listener to the slider that changes the background color on the red if
+        // only the check box is unclicked
         slider.valueProperty().addListener(e -> {
-            if(!checkBox.isSelected()){
-                this.setStyle("-fx-background-color: rgb(0, 0, "+slider.getValue()+")");
+            if (!checkBox.isSelected()) {
+                this.setStyle("-fx-background-color: rgb(0, 0, " + slider.getValue() + ")");
             }
         });
-        //create an array of 50 diffeent jobs
-        String[] jobs = {"Student", "Teacher", "Doctor", "Lawyer", "Engineer", "Nurse",
-         "Police", "Firefighter", "Pilot", "Chef", "Farmer", "Mechanic", "Electrician", "Plumber", "Carpenter",
-          "Dentist", "Pharmacist", "Veterinarian", "Accountant", "Architect", "Actor", "Musician", "Athlete", "Artist",
-           "Scientist", "Psychologist", "Journalist", "Librarian", "Secretary", "Cashier", "Waiter", "Bartender", "Janitor",
-            "Bus Driver", "Taxi Driver", "Truck Driver", "Soldier", "Judge", "Politician", "Diplomat", "Priest", "Monk", "Nun",
-             "Bishop", "Pope", "King", "Queen", "Prince", "Princess", "Emperor", "Empress"};
+        // create an array of 50 diffeent jobs
+        String[] jobs = { "Student", "Teacher", "Doctor", "Lawyer", "Engineer", "Nurse",
+                "Police", "Firefighter", "Pilot", "Chef", "Farmer", "Mechanic", "Electrician", "Plumber", "Carpenter",
+                "Dentist", "Pharmacist", "Veterinarian", "Accountant", "Architect", "Actor", "Musician", "Athlete",
+                "Artist",
+                "Scientist", "Psychologist", "Journalist", "Librarian", "Secretary", "Cashier", "Waiter", "Bartender",
+                "Janitor",
+                "Bus Driver", "Taxi Driver", "Truck Driver", "Soldier", "Judge", "Politician", "Diplomat", "Priest",
+                "Monk", "Nun",
+                "Bishop", "Pope", "King", "Queen", "Prince", "Princess", "Emperor", "Empress" };
 
-//add a listner to the job textfield that throws an exception if the job is not in the array when the submit button is clicked
+        // add a listner to the job textfield that throws an exception if the job is not
+        // in the array when the submit button is clicked
         jobTextField.setOnAction(e -> {
             boolean found = false;
-            for(int i = 0; i < jobs.length; i++){
-                if(jobTextField.getText().equals(jobs[i])){
+            for (int i = 0; i < jobs.length; i++) {
+                if (jobTextField.getText().equals(jobs[i])) {
                     found = true;
                 }
             }
-            if(!found){
+            if (!found) {
                 throw new IllegalArgumentException("Job not found");
             }
         });
 
         // slider.valueProperty().addListener(e -> {
-        //     this.setStyle("-fx-background-color: rgb(0, 0, "+slider.getValue()+")");
+        // this.setStyle("-fx-background-color: rgb(0, 0, "+slider.getValue()+")");
         // });
-        //give a title for the image
+        // give a title for the image
         imageView.setAccessibleText("life best picture");
-
 
     }
 
