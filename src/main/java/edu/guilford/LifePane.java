@@ -22,6 +22,12 @@ public class LifePane extends GridPane {
     // private Label ageLabel = new Label();
     private Label jobLabel = new Label();
     // private Label healthLabel = new Label();
+    // add a label NamePopUp attribute
+    private Label NamePopUp = new Label();
+    // add a label GroupPopUp attribute
+    private Label GroupPopUp = new Label();
+    // add a label JobPopUp attribute
+    private Label JobPopUp = new Label();
 
     // add textfields for the attributes
     private TextField nameTextField;
@@ -48,10 +54,10 @@ public class LifePane extends GridPane {
         // set the life attribute
         this.life = life;
         // set the labels
-        nameLabel.setText("Name: " + life.getName());
-        groupLabel.setText("Group: " + life.getGroup());
+        // nameLabel.setText("Name: " + life.getName());
+        // groupLabel.setText("Group: " + life.getGroup());
         // ageLabel.setText("Age: ");
-        jobLabel.setText("Job: " + life.getJob());
+        // jobLabel.setText("Job: " + life.getJob());
         // healthLabel.setText("Health: ");
 
         // instantiate text fields for the attributes
@@ -77,11 +83,9 @@ public class LifePane extends GridPane {
         imageView = new ImageView(file.toURI().toString());
 
         // set the text fields
-        nameTextField.setText(life.getName());
-        groupTextField.setText(life.getGroup());
-        // ageTextField.setText(life.getAge());
-        jobTextField.setText(life.getJob());
-        // healthTextField.setText(life.getHealth());
+        nameLabel.setText("Name: ");
+        groupLabel.setText("Group: ");
+        jobLabel.setText("Job: ");
 
         // add the labels to the pane
         this.add(nameLabel, 0, 0);
@@ -107,6 +111,12 @@ public class LifePane extends GridPane {
         this.add(checkBox, 0, 5);
         // add the slider to the pane at the top center of the first image
         this.add(slider, 1, 8);
+        // add the NamePopUp to the pane next to the name text field
+        this.add(NamePopUp, 2, 0);
+        // add the GroupPopUp to the pane next to the group text field
+        this.add(GroupPopUp, 2, 1);
+        // add the JobPopUp to the pane next to the job text field
+        this.add(JobPopUp, 2, 3);
 
         // add a listener to the checkbox that changes the background color to red when
         // the checkbox is selected
@@ -128,11 +138,9 @@ public class LifePane extends GridPane {
             // life.setHealth(healthTextField.getText());
 
             // set the labels to the new values
-            nameLabel.setText("Name: " + life.getName());
-            groupLabel.setText("Group: " + life.getGroup());
-            // ageLabel.setText("Age: "+life.getAge());
-            jobLabel.setText("Job: " + life.getJob());
-            // healthLabel.setText("Health: "+life.getHealth());
+            // nameLabel.setText("Name: " + nameTextField.getText());
+            // groupLabel.setText("Group: " + groupTextField.getText());
+            // jobLabel.setText("Job: " + jobTextField.getText());
         });
 
         // set the pane
@@ -171,44 +179,128 @@ public class LifePane extends GridPane {
             imageView.setImage(new Image(file.toURI().toString()));
         });
 
-        // add a listener to the slider that changes the background color on the red if
-        // only the check box is unclicked
         slider.valueProperty().addListener(e -> {
             if (!checkBox.isSelected()) {
                 this.setStyle("-fx-background-color: rgb(0, 0, " + slider.getValue() + ")");
+                //change the color of the text to white if the background color is dark
+                nameLabel.setStyle("-fx-text-fill: white");
+                groupLabel.setStyle("-fx-text-fill: white");
+                jobLabel.setStyle("-fx-text-fill: white");
+                //change the background color checkbox to white if the background color is dark
+                checkBox.setStyle("-fx-background-color: white");
+                //change all the popups to white if the background color is dark
+                NamePopUp.setStyle("-fx-text-fill: white");
+                GroupPopUp.setStyle("-fx-text-fill: white");
+                JobPopUp.setStyle("-fx-text-fill: white");
+                //if the background color is now white, change the color of the text to black
+                
+
+            }//if the background color checkbox is unclicked, set the text color to black
+            else if(!checkBox.isSelected()) {
+                nameLabel.setStyle("-fx-text-fill: black");
+                groupLabel.setStyle("-fx-text-fill: black");
+                jobLabel.setStyle("-fx-text-fill: black");
+                //change the background color checkbox to black if the background color is white
+                checkBox.setStyle("-fx-background-color: white");
+                //change all the popups to black if the background color is white
+                NamePopUp.setStyle("-fx-text-fill: black");
+                GroupPopUp.setStyle("-fx-text-fill: black");
+                JobPopUp.setStyle("-fx-text-fill: black");
+            }
+            else {
+                this.setStyle("-fx-background-color: rgb(255, 0, 0)");
+                //change the color of the text to black if the background color is white
+                nameLabel.setStyle("-fx-text-fill: black");
+                groupLabel.setStyle("-fx-text-fill: black");
+                jobLabel.setStyle("-fx-text-fill: black");
+                //change the background color checkbox to black if the background color is white
+                checkBox.setStyle("-fx-background-color: black");
+                //change all the popups to black if the background color is white
+                NamePopUp.setStyle("-fx-text-fill: black");
+                GroupPopUp.setStyle("-fx-text-fill: black");
+                JobPopUp.setStyle("-fx-text-fill: black");
             }
         });
-        // create an array of 50 diffeent jobs
-        String[] jobs = { "Student", "Teacher", "Doctor", "Lawyer", "Engineer", "Nurse",
-                "Police", "Firefighter", "Pilot", "Chef", "Farmer", "Mechanic", "Electrician", "Plumber", "Carpenter",
-                "Dentist", "Pharmacist", "Veterinarian", "Accountant", "Architect", "Actor", "Musician", "Athlete",
-                "Artist",
-                "Scientist", "Psychologist", "Journalist", "Librarian", "Secretary", "Cashier", "Waiter", "Bartender",
-                "Janitor",
-                "Bus Driver", "Taxi Driver", "Truck Driver", "Soldier", "Judge", "Politician", "Diplomat", "Priest",
-                "Monk", "Nun",
-                "Bishop", "Pope", "King", "Queen", "Prince", "Princess", "Emperor", "Empress" };
-
-        // add a listner to the job textfield that throws an exception if the job is not
-        // in the array when the submit button is clicked
-        jobTextField.setOnAction(e -> {
-            boolean found = false;
-            for (int i = 0; i < jobs.length; i++) {
-                if (jobTextField.getText().equals(jobs[i])) {
-                    found = true;
-                }
-            }
-            if (!found) {
-                throw new IllegalArgumentException("Job not found");
-            }
-        });
-
-        // slider.valueProperty().addListener(e -> {
-        // this.setStyle("-fx-background-color: rgb(0, 0, "+slider.getValue()+")");
-        // });
-        // give a title for the image
         imageView.setAccessibleText("life best picture");
 
-    }
+        // add a listener to the name text field that make sure the name is not empty,
+        // is not a number, and is not a special character and
+        // does not contain a number or a special character
+        nameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                NamePopUp.setText("Name cannot be empty");
+                nameLabel.setText("Name: ");
+                // set the visibility of the name label to false
+                // nameLabel.setVisible(false);
+            } else if (newValue.matches(".*\\d.*")) {
+                NamePopUp.setText("Name cannot contain a number");
+                nameLabel.setText("Name: ");
+                // set the visibility of the name label to false
+                // nameLabel.setVisible(false);
+            } else if (newValue.matches(".*\\W.*")) {
+                NamePopUp.setText("Name cannot contain a special character");
+                nameLabel.setText("Name: ");
+                // set the visibility of the name label to false
+                // nameLabel.setVisible(false);
+            } else {
+                NamePopUp.setText("");
+                nameLabel.setText("Name: " + nameTextField.getText());
+                // set the visibility of the name label to true
+                nameLabel.setVisible(true);
+            }
+        });
+       
+        // add a listener to the group text field that make sure the group is not empty,
+        // is not a number, and is not a special character and
+        // does not contain a number or a special character
+        // chosen from a list of options ranging from human, animal, plant, and other
+        groupTextField.textProperty().addListener((observable, oldValue, newValue) -> {
 
+            if (newValue.isEmpty()) {
+                GroupPopUp.setText("Group cannot be empty");
+                groupLabel.setText("Group: ");
+            } else if (newValue.matches(".*\\d.*")) {
+                GroupPopUp.setText("Group cannot contain a number");
+                // set the grouplabel to empty
+                groupLabel.setText("Group: ");
+            } else if (newValue.matches(".*\\W.*")) {
+                GroupPopUp.setText("Group cannot contain a special character");
+                groupLabel.setText("Group: ");
+            } else {
+                GroupPopUp.setText("");
+                groupLabel.setText("Group: " + groupTextField.getText());
+                // set the visibility of the group label to true
+                groupLabel.setVisible(true);
+            }
+        });
+        // add a listener to the job text field that make sure the job is not empty, is
+        // not a number, and is not a special character and
+        // does not contain a number or a special character
+        // chosen from a list of options ranging from student, teacher, and other
+        jobTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                JobPopUp.setText("Job cannot be empty");
+                jobLabel.setText("Job: ");
+            } else if (newValue.matches(".*\\d.*")) {
+                JobPopUp.setText("Job cannot contain a number");
+                jobLabel.setText("Job: ");
+            } else if (newValue.matches(".*\\W.*")) {
+                JobPopUp.setText("Job cannot contain a special character");
+                jobLabel.setText("Job: ");
+            } else {
+                JobPopUp.setText("");
+                jobLabel.setText("Job: " + jobTextField.getText());
+                // set the visibility of the job label to true
+                jobLabel.setVisible(true);
+            }
+        });
+    
+}
+
+public static class NullPointerException extends Exception {
+    public NullPointerException(String message) {
+        super(message);
+            
+}
+}
 }

@@ -1,0 +1,14 @@
+Most of the exception founded were mostly "IllegalArgumentException"
+
+"IllegalArgumentException": Thrown to indicate that a method has been passed an illegal or inappropriate argument.
+This may not be a runtime exception, but can leads uncorrect data entry from the user
+
+* To solve those issues, trhows some handler on the each textfield to let the user know 
+that certains characters are not allowed and not to prin tit out if the user hits the sbmit button
+
+"NullPointerException" was the second major exception I got when trying to play around the checkbox and
+ the color fot the text and the color of the background to make everything visible with the change of the color.
+
+ * To solve that an demonstrate the understanding of the Exception and how to handle them, I creat a static
+  class that extedns the exception class and trhow a try-catch block arround the slider. 
+  I did not print any message but gor rid of the StackTrace in the terminal.
